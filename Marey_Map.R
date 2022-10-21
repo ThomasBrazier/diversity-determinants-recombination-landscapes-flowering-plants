@@ -617,13 +617,6 @@ data.final = read.table(file = "data-cleaned/marey_maps/AllMaps.txt", header = T
 #startMareyMapGUI()
 ############# deprecated #####################
 
-
-
-# TODO
-# Verify congruence chromosome size/LG size -> LG can be named differently from chromosomes
-# Manual curating for now
-
-
 #============================================================================#
 # Estimate the local recombination rate ----
 #============================================================================#
@@ -706,13 +699,6 @@ recombination.map(set = as.character(list.maps[44]), chr = "5",
                   method = "loess", K = 3, boot = 1000, span = 0.35)
 
 
-#----------------------------------------------------------------------#
-# Sliding window ----
-#----------------------------------------------------------------------#
-# "sliding window, which is the simplest and most widely used method. The idea is just sliding a window along a chromosome and getting the local 
-# estimate with the slope of the best line fit to the data in the local window. Parameters are window size and shift." Rezvoy et al. 2007
-
-# May be the worst interpolation method, so no implementation yet
 
 #----------------------------------------------------------------------#
 # Cubic spline ----
@@ -742,39 +728,6 @@ for (i in c(41, 53)) {
 
 # Below are methods of interest to improve esimates, but they have to be tested
 
-#----------------------------------------------------------------------#
-# Natural splines method of Berloff (2002) with penalized max likelihood estimation ----
-#----------------------------------------------------------------------#
-# Custom implementation of the penalized max likelihood estimation with natural splines developped by Berloff et al. (2002)
-
-# TODO Important improvement of smoothing splines
-
-#----------------------------------------------------------------------#
-# Thin-plate regression splines ----
-#----------------------------------------------------------------------#
-# R package mgcv to fit thin-plate regression splines (Wood, 2003).
-# TODO
-
-
-#----------------------------------------------------------------------#
-# GAM models with mgcv ----
-#----------------------------------------------------------------------#
-# TODO
-# mod = gam(gen~s(phys), data = chr.data)
-# summary(mod)
-# gam.check(mod)
-# 
-# plot(mod,shade=TRUE,seWithMean=TRUE,scale=0)
-# 
-# predict(mod, newdata=chr.data$phys)
-
-#----------------------------------------------------------------------#
-# Bayesian estimates (@petitVariationRecombinationRate2017a) Petit et al. 2017's method ----
-#----------------------------------------------------------------------#
-# Method based directly on CO positions, not on genetic distances
-
-# TODO
-
 
 #============================================================================#
 # Validate the recombination map ----
@@ -789,12 +742,6 @@ for (i in c(41, 53)) {
 #discard.map() # Remove data in the original dataset
 
 # Then analyses are runned again to update the results
-
-
-#----------------------------------------------------------------------#
-# RMSE method
-#----------------------------------------------------------------------#
-
 
 
 #============================================================================#
@@ -856,47 +803,6 @@ for (i in which(idx_reject)) {
   set =  map_stats$chromosome[i]
   save.log(msg = paste("Chromosome", map_stats$chromosome[i],"in", map_stats$set[i],"discarded: Map saved.", sep = " "))
 }
-
-#----------------------------------------------------------------------#
-# Quantitative assessment - Confidence Intervals
-
-
-
-#----------------------------------------------------------------------#
-# Now re-iterate update_cleaned data and map recombination rate estimation...
-#----------------------------------------------------------------------#
-
-
-
-
-
-
-#============================================================================#
-# Significance testing of the recombination map ----
-#============================================================================#
-# Which part of the recombination landscape have a recombination rate significantly higher than the average recombination rate?
-
-
-
-
-
-#============================================================================#
-# Save the recombination map ----
-#============================================================================#
-
-#----------------------------------------------------------------------#
-# Saving in the directory '/output/MareyMaps'
-# Maps can be saved to R data files (rda, Rda, rdata or Rdata) or to text files (txt).
-
-
-#----------------------------------------------------------------------#
-# Save in a txt file the estimated local recombination rate for each marker position
-
-
-
-#----------------------------------------------------------------------#
-# Indicate the centromere position
-# BLAST the centromeric motif, since centromeres are not necessarily at the center of the chromosome (e.g. metacentric, acrocentric or telocentric)
 
 #============================================================================#
 # END ----
